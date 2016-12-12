@@ -24,6 +24,8 @@ public class VoteController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> createVote(@RequestBody Vote vote, @PathVariable Long pollId) {
+        System.out.println(vote);
+
         vote = voteRepository.save(vote);
 
         HttpHeaders responseHeader = new HttpHeaders();
@@ -36,5 +38,7 @@ public class VoteController {
     public Iterable<Vote> getAllVotes(@PathVariable Long pollId) {
         return voteRepository.findByPoll(pollId);
     }
+
+
 
 }

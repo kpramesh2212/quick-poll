@@ -49,4 +49,9 @@ public class Poll {
     public void setQuestion(String question) {
         this.question = question;
     }
+
+    @Override
+    public String toString() {
+        return "{id = " + id + ", question = " + question + ", option = [ \n\t" + options + "\n\t]  }";
+    }
 }
