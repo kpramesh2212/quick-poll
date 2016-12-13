@@ -1,5 +1,7 @@
 package com.ramesh.domain;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,6 +14,7 @@ public class Option {
     @Column(name = "OPTION_ID")
     private Long id;
     @Column(name = "OPTION_VALUE")
+    @NotBlank
     private String value;
 
     public Long getId() {

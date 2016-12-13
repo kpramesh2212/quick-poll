@@ -1,5 +1,7 @@
 package com.ramesh.domain;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -10,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Poll {
@@ -19,11 +23,14 @@ public class Poll {
     private Long id;
 
     @Column(name = "QUESTION")
+    @NotBlank
     private String question;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "POLL_ID")
     @OrderBy
+    @NotNull
+    @Size(min = 2)
     private Set<Option> options;
 
     public Long getId() {

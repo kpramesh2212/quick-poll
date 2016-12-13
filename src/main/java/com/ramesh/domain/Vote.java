@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Vote {
@@ -17,6 +18,7 @@ public class Vote {
 
     @ManyToOne
     @JoinColumn(name = "OPTION_ID")
+    @NotNull
     private Option option;
 
     public Long getId() {
