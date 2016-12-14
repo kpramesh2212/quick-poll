@@ -15,15 +15,20 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.inject.Inject;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 @RequestMapping(value = "/polls/{pollId}/votes")
+@Api(value = "votes", description = "Vote API")
 public class VoteController {
 
     @Inject
     private VoteRepository voteRepository;
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> createVote(@RequestBody Vote vote, @PathVariable Long pollId) {
+    @ApiOperation(value = "Creates a new vote for associated poll Id", response = Void.class)
+    public ResponseEntity<Void> createVote(@RequestBody Vote vote, @PathVariable Long pollId) {
         System.out.println(vote);
 
         vote = voteRepository.save(vote);
@@ -35,8 +40,10 @@ public class VoteController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public Iterable<Vote> getAllVotes(@PathVariable Long pollId) {
-        return voteRepository.findByPoll(pollId);
+    @ApiOperation(value = "Retrieves all votes for associated poll Id", response = Vote.class,
+            responseContainer = "List")
+    public ResponseEntity<Iterable<Vote>> getAllVotes(@PathVariable Long pollId) {
+        return new ResponseEntity<>(voteRepository.findByPoll(pollId), HttpStatus.OK);
     }
 
 

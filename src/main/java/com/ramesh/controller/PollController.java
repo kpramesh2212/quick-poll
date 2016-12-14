@@ -3,7 +3,6 @@ package com.ramesh.controller;
 import com.ramesh.domain.Poll;
 import com.ramesh.exception.ResourceNotFoundException;
 import com.ramesh.repository.PollRepository;
-
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,26 +18,34 @@ import java.net.URI;
 import javax.inject.Inject;
 import javax.validation.Valid;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 @RequestMapping(value = "/polls")
+@Api(value = "polls", description = "Poll API")
 public class PollController {
 
     @Inject
     private PollRepository pollRepository;
 
     @RequestMapping(method = RequestMethod.GET)
+    @ApiOperation(value = "Retrieves all the polls", response = Poll.class,
+            responseContainer="List")
     public ResponseEntity<Iterable<Poll>> getAllPolls() {
         return new ResponseEntity<>(pollRepository.findAll(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{pollId}", method = RequestMethod.GET)
-    public ResponseEntity<?> getPoll(@PathVariable Long pollId) {
+    @ApiOperation(value = "Retrieves a Poll associated with the pollId", response = Poll.class)
+    public ResponseEntity<Poll> getPoll(@PathVariable Long pollId) {
         Poll poll = verifyAndGetPoll(pollId);
         return new ResponseEntity<>(poll, HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> createPoll(@Valid @RequestBody Poll poll) {
+    @ApiOperation(value = "Creates a new poll", response = Void.class)
+    public ResponseEntity<Void> createPoll(@Valid @RequestBody Poll poll) {
         poll  = pollRepository.save(poll);
         HttpHeaders responseHeaders = new HttpHeaders();
         URI pollUri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
@@ -48,14 +55,17 @@ public class PollController {
     }
 
     @RequestMapping(value = "{pollId}", method = RequestMethod.PUT)
-    public ResponseEntity<?> updatePoll(@Valid @RequestBody Poll poll, @PathVariable Long pollId) {
+    @ApiOperation(value = "Updates a Poll associated with pollId", response = Void.class)
+    public ResponseEntity<Void> updatePoll(@Valid @RequestBody Poll poll, @PathVariable Long
+            pollId) {
         verifyAndGetPoll(pollId);
         pollRepository.save(poll);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "{pollId}", method = RequestMethod.DELETE)
-    public ResponseEntity<?> deletePoll(@PathVariable Long pollId) {
+    @ApiOperation(value = "Deletes a Poll associated with pollId", response = Void.class)
+    public ResponseEntity<Void> deletePoll(@PathVariable Long pollId) {
         verifyAndGetPoll(pollId);
         pollRepository.delete(pollId);
         return new ResponseEntity<>(HttpStatus.OK);

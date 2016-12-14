@@ -17,13 +17,18 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 @RequestMapping("/computeresult")
+@Api(value = "Compute Poll Results", description = "Compute Result API")
 public class ComputeResultController {
     @Inject private VoteRepository voteRepository;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<?> computeResult(@RequestParam Long pollId) {
+    @ApiOperation(value = "Compute results for associated poll id", response = VoteResult.class)
+    public ResponseEntity<VoteResult> computeResult(@RequestParam Long pollId) {
         VoteResult voteResult = new VoteResult();
         int totalVotes = 0;
         Iterable<Vote> allvotes = voteRepository.findByPoll(pollId);
