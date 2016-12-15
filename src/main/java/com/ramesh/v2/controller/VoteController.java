@@ -1,4 +1,4 @@
-package com.ramesh.controller;
+package com.ramesh.v2.controller;
 
 import com.ramesh.domain.Vote;
 import com.ramesh.repository.VoteRepository;
@@ -18,8 +18,8 @@ import javax.inject.Inject;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
-@RestController
-@RequestMapping(value = "/polls/{pollId}/votes")
+@RestController("VoteControllerV2")
+@RequestMapping(value = "/v2/polls/{pollId}/votes")
 @Api(value = "votes", description = "Vote API")
 public class VoteController {
 

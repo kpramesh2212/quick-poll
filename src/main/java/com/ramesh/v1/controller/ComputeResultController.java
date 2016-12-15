@@ -1,4 +1,4 @@
-package com.ramesh.controller;
+package com.ramesh.v1.controller;
 
 import com.ramesh.domain.Vote;
 import com.ramesh.dto.OptionCount;
@@ -20,8 +20,8 @@ import javax.inject.Inject;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
-@RestController
-@RequestMapping("/computeresult")
+@RestController("ComputeResultControllerV1")
+@RequestMapping("/v1/computeresult")
 @Api(value = "Compute Poll Results", description = "Compute Result API")
 public class ComputeResultController {
     @Inject private VoteRepository voteRepository;

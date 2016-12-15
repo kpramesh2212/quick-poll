@@ -1,4 +1,4 @@
-package com.ramesh.controller;
+package com.ramesh.v1.controller;
 
 import com.ramesh.domain.Poll;
 import com.ramesh.exception.ResourceNotFoundException;
@@ -21,8 +21,8 @@ import javax.validation.Valid;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
-@RestController
-@RequestMapping(value = "/polls")
+@RestController("PollControllerV1")
+@RequestMapping(value = "/v1/polls")
 @Api(value = "polls", description = "Poll API")
 public class PollController {
 
