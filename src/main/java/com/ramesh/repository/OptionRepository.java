@@ -2,7 +2,7 @@ package com.ramesh.repository;
 
 import com.ramesh.domain.Option;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
-public interface OptionRepository extends CrudRepository<Option, Long>{
+public interface OptionRepository extends PagingAndSortingRepository<Option, Long> {
 }
